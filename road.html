@@ -1,0 +1,486 @@
+
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>လမ်းလုပ်ငန်း | Overseer (39)</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Myanmar:wght@400;500;600;700&display=swap');
+
+:root {
+    --navy: #101e30;
+    --navy-light: #192c42;
+    --yellow: #ffbd24;
+    --concrete: #e8ebee;
+    --asphalt: #353d46;
+    --white: #ffffff;
+    --muted: #aab5c1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans Myanmar', 'Inter', sans-serif;
+    background: #edf0f3;
+    color: var(--navy);
+    min-height: 100vh;
+}
+
+/* ENGINEERING GRID */
+.engineering-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-image:
+        linear-gradient(rgba(16,30,48,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16,30,48,.035) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+/* TOP HEADER */
+.topbar {
+    height: 72px;
+    padding: 0 7%;
+    background: var(--navy);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid var(--yellow);
+}
+
+.brand {
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.brand span {
+    color: var(--yellow);
+}
+
+.header-tag {
+    color: #c5ced8;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+/* HERO */
+.hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(120deg, #101e30, #203850);
+    color: var(--white);
+    padding: 65px 7% 70px;
+}
+
+/* Road blueprint decoration */
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 380px;
+    height: 520px;
+    right: -80px;
+    top: -150px;
+    border: 2px solid rgba(255,189,36,.18);
+    transform: rotate(35deg);
+    pointer-events: none;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 190px;
+    height: 600px;
+    right: 8%;
+    top: -200px;
+    border-left: 2px dashed rgba(255,255,255,.15);
+    border-right: 2px dashed rgba(255,255,255,.15);
+    transform: rotate(35deg);
+    pointer-events: none;
+}
+
+.breadcrumb {
+    position: relative;
+    z-index: 1;
+    color: var(--yellow);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+}
+
+.title {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(32px, 5vw, 50px);
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.title-mark {
+    width: 65px;
+    height: 5px;
+    background: var(--yellow);
+    margin: 20px 0;
+}
+
+.description {
+    position: relative;
+    z-index: 1;
+    color: #d1dae4;
+    font-size: 16px;
+    line-height: 2;
+}
+
+/* SECTION */
+.content {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 45px 25px 70px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 24px;
+}
+
+.section-heading h2 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.section-code {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: #647385;
+    letter-spacing: 1px;
+}
+
+/* ROADWORK CARDS */
+.road-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.road-card {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-height: 135px;
+    padding: 23px 28px;
+    background: var(--white);
+    border: 1px solid #d8dee5;
+    border-left: 5px solid var(--yellow);
+    box-shadow: 0 4px 15px rgba(16,30,48,.045);
+    text-decoration: none;
+    color: var(--navy);
+    transition: transform .25s ease,
+                box-shadow .25s ease,
+                background .25s ease;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    font-family: inherit;
+}
+
+.road-card:hover {
+    transform: translateX(6px);
+    box-shadow: 0 10px 25px rgba(16,30,48,.12);
+    background: #fffdf6;
+}
+
+.number {
+    font-family: 'Inter', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: #c2cbd4;
+    min-width: 48px;
+}
+
+.card-content {
+    flex: 1;
+}
+
+.card-label {
+    font-family: 'Inter', sans-serif;
+    color: #8b96a2;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+
+.card-content h3 {
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.8;
+}
+
+.card-content p {
+    color: #75808c;
+    font-size: 12px;
+    margin-top: 5px;
+    line-height: 1.8;
+}
+
+.arrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    color: var(--navy);
+    transition: .25s;
+}
+
+.road-card:hover .arrow {
+    color: #b17b00;
+    transform: translateX(5px);
+}
+
+/* TECHNICAL NOTE */
+.note {
+    margin-top: 28px;
+    padding: 18px 22px;
+    background: #e1e6eb;
+    border-left: 4px solid var(--asphalt);
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.note-icon {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    color: #647385;
+}
+
+.note p {
+    color: #4c5967;
+    font-size: 12px;
+    line-height: 2;
+}
+
+/* FOOTER */
+.footer {
+    padding: 25px 7%;
+    background: var(--navy);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    color: #9daab9;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.footer strong {
+    color: var(--yellow);
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .topbar {
+        height: 65px;
+        padding: 0 20px;
+    }
+
+    .brand {
+        font-size: 18px;
+    }
+
+    .header-tag {
+        font-size: 8px;
+        letter-spacing: 1px;
+    }
+
+    .hero {
+        padding: 48px 23px 55px;
+    }
+
+    .title {
+        font-size: 34px;
+    }
+
+    .description {
+        font-size: 14px;
+    }
+
+    .content {
+        padding: 35px 17px 45px;
+    }
+
+    .section-heading h2 {
+        font-size: 17px;
+    }
+
+    .section-code {
+        font-size: 8px;
+    }
+
+    .road-card {
+        gap: 14px;
+        padding: 20px 15px;
+        min-height: 120px;
+    }
+
+    .number {
+        min-width: 35px;
+        font-size: 23px;
+    }
+
+    .card-content h3 {
+        font-size: 16px;
+    }
+
+    .card-content p {
+        font-size: 11px;
+    }
+
+    .footer {
+        padding: 23px 20px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        transition: none !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="engineering-grid"></div>
+
+<!-- HEADER -->
+<header class="topbar">
+    <div class="brand">
+        OVERSEER <span>(39)</span>
+    </div>
+    <div class="header-tag">
+        CIVIL ENGINEERING
+    </div>
+</header>
+
+<!-- TITLE SECTION -->
+<section class="hero">
+    <div class="breadcrumb">
+        ENGINEERING / ROAD WORKS
+    </div>
+
+    <h1 class="title">လမ်းလုပ်ငန်း</h1>
+
+    <div class="title-mark"></div>
+
+    <p class="description">
+        အထွေထွေသိမှတ်ဖွယ်ရာများ
+    </p>
+</section>
+
+<!-- MAIN CONTENT -->
+<main class="content">
+
+    <div class="section-heading">
+        <h2>လမ်းလုပ်ငန်း အမျိုးအစားများ</h2>
+        <span class="section-code">SECTION 01 — 03</span>
+    </div>
+
+    <div class="road-list">
+
+        <!-- BUTTON 1 -->
+        <button class="road-card"
+            onclick="openRoadPage('earthwork')">
+
+            <span class="number">01</span>
+
+            <div class="card-content">
+                <div class="card-label">EARTHWORK</div>
+                <h3>မြေသားလမ်းလုပ်ငန်း</h3>
+                <p>မြေတူးခြင်း၊ မြေဖို့ခြင်းနှင့် မြေသားပြုပြင်ခြင်း</p>
+            </div>
+
+            <span class="arrow">↗</span>
+        </button>
+
+        <!-- BUTTON 2 -->
+        <button class="road-card"
+            onclick="openRoadPage('asphalt')">
+
+            <span class="number">02</span>
+
+            <div class="card-content">
+                <div class="card-label">ASPHALT PAVEMENT</div>
+                <h3>ကတ္တရာလမ်း</h3>
+                <p>ကတ္တရာလမ်းခင်းခြင်းနှင့် အရည်အသွေးထိန်းချုပ်ခြင်း</p>
+            </div>
+
+            <span class="arrow">↗</span>
+        </button>
+
+        <!-- BUTTON 3 -->
+        <button class="road-card"
+            onclick="openRoadPage('ac')">
+
+            <span class="number">03</span>
+
+            <div class="card-content">
+                <div class="card-label">AC OVERLAY</div>
+                <h3>ထပ်ပိုးလွှာ AC</h3>
+                <p>ကတ္တရာကွန်ကရစ် ထပ်ပိုးခင်းခြင်းဆိုင်ရာ သိမှတ်ဖွယ်ရာများ</p>
+            </div>
+
+            <span class="arrow">↗</span>
+        </button>
+
+    </div>
+
+    <div class="note">
+        <span class="note-icon">INFO</span>
+        <p>
+            လမ်းလုပ်ငန်းဆိုင်ရာ နည်းပညာများ၊
+            လုပ်ငန်းအဆင့်ဆင့်နှင့် အရည်အသွေးစစ်ဆေးမှုများကို
+            လေ့လာရန် သက်ဆိုင်ရာခေါင်းစဉ်ကို ရွေးချယ်ပါ။
+        </p>
+    </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div>OVERSEER <strong>(39)</strong></div>
+    <div>ROAD & HIGHWAY ENGINEERING</div>
+    <div>TECHNICAL KNOWLEDGE PORTAL</div>
+</footer>
+
+<script>
+function openRoadPage(type) {
+    const pages = {
+        earthwork: "earthwork.html",
+        asphalt: "asphalt.html",
+        ac: "ac-overlay.html"
+    };
+
+    window.location.href = pages[type];
+}
+</script>
+
+</body>
+</html>
