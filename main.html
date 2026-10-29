@@ -1,0 +1,458 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Overseer (39)</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --yellow: #ffb800;
+    --black: #17191b;
+    --grey: #292d30;
+    --white: #f5f5f2;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--black);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* CONSTRUCTION BACKGROUND */
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,184,0,0.07),
+            transparent 45%
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 49px,
+            rgba(255,255,255,0.035) 50px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 49px,
+            rgba(255,255,255,0.035) 50px
+        ),
+        #17191b;
+}
+
+.background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            125deg,
+            transparent 60%,
+            rgba(255,184,0,0.06) 60%,
+            rgba(255,184,0,0.06) 61%,
+            transparent 61%
+        );
+}
+
+/* INTRO SCREEN */
+#intro {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #17191b;
+    transition: opacity 0.8s ease,
+                visibility 0.8s ease;
+}
+
+#intro.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.intro-line {
+    width: 0;
+    height: 4px;
+    background: var(--yellow);
+    margin-bottom: 25px;
+    animation: lineGrow 0.8s ease forwards;
+}
+
+.intro-title {
+    font-size: clamp(35px, 8vw, 85px);
+    font-weight: 900;
+    letter-spacing: 5px;
+    text-align: center;
+    color: var(--white);
+    opacity: 0;
+    transform: translateY(35px);
+    animation: titleIn 1s ease 0.3s forwards;
+}
+
+.intro-title span {
+    color: var(--yellow);
+}
+
+.intro-subtitle {
+    margin-top: 18px;
+    color: #999;
+    font-size: 12px;
+    letter-spacing: 5px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease 1.2s forwards;
+}
+
+@keyframes titleIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes lineGrow {
+    to {
+        width: min(320px, 70vw);
+    }
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* MAIN WEBSITE */
+#main {
+    min-height: 100vh;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease,
+                transform 1s ease;
+    padding: 25px;
+}
+
+#main.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid #414141;
+    padding-bottom: 20px;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: var(--yellow);
+}
+
+.status {
+    color: var(--yellow);
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.hero {
+    margin: 65px 0 40px;
+}
+
+.hero .label {
+    color: var(--yellow);
+    font-size: 12px;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+}
+
+.hero h1 {
+    font-size: clamp(30px, 5vw, 55px);
+    line-height: 1.15;
+    font-weight: 900;
+}
+
+.hero h1 span {
+    color: var(--yellow);
+}
+
+.hero p {
+    margin-top: 15px;
+    color: #aaa;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+/* EIGHT BUTTONS */
+.menu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    max-width: 1100px;
+}
+
+.menu-btn {
+    position: relative;
+    min-height: 150px;
+    padding: 22px;
+    background: linear-gradient(145deg, #303437, #202224);
+    border: 1px solid #424649;
+    border-left: 4px solid var(--yellow);
+    color: var(--white);
+    text-align: left;
+    cursor: pointer;
+    overflow: hidden;
+    transition: 0.3s ease;
+}
+
+.menu-btn:hover {
+    background: var(--yellow);
+    color: #17191b;
+    transform: translateY(-5px);
+    border-color: var(--yellow);
+}
+
+.menu-btn .number {
+    font-size: 12px;
+    color: var(--yellow);
+    margin-bottom: 22px;
+    display: block;
+}
+
+.menu-btn:hover .number {
+    color: #17191b;
+}
+
+.menu-btn .symbol {
+    font-size: 25px;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.menu-btn h3 {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.menu-btn p {
+    font-size: 11px;
+    opacity: 0.65;
+    margin-top: 7px;
+}
+
+footer {
+    margin-top: 50px;
+    padding: 20px 0;
+    border-top: 1px solid #414141;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    color: #777;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+footer span {
+    color: var(--yellow);
+}
+
+/* RESPONSIVE */
+@media (max-width: 750px) {
+    .menu {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .menu-btn {
+        min-height: 135px;
+        padding: 16px;
+    }
+
+    .hero {
+        margin-top: 45px;
+    }
+
+    #main {
+        padding: 18px;
+    }
+}
+
+@media (max-width: 360px) {
+    .logo {
+        font-size: 18px;
+    }
+
+    .status {
+        font-size: 9px;
+    }
+
+    .menu-btn h3 {
+        font-size: 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<!-- INTRO: FIRST 3 SECONDS -->
+<section id="intro">
+    <div class="intro-line"></div>
+
+    <h1 class="intro-title">
+        Overseer <span>(39)</span>
+    </h1>
+
+    <p class="intro-subtitle">
+        CONSTRUCTION MANAGEMENT
+    </p>
+</section>
+
+<!-- MAIN PAGE -->
+<main id="main">
+
+    <header>
+        <div class="logo">
+            OVERSEER <span>(39)</span>
+        </div>
+
+        <div class="status">
+            ● CONSTRUCTION PORTAL
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="label">BUILD • MANAGE • INSPECT</div>
+
+        <h1>
+            YOUR SITE.<br>
+            YOUR <span>CONTROL.</span>
+        </h1>
+
+        <p>
+            Welcome to Overseer (39).<br>
+            Your construction management workspace.
+        </p>
+    </section>
+
+    <!-- 8 MENU BUTTONS -->
+    <section class="menu">
+
+        <button class="menu-btn"
+            onclick="openPage('Dashboard')">
+            <span class="number">01 / MENU</span>
+            <span class="symbol">▦</span>
+            <h3>Dashboard</h3>
+            <p>Overview & summary</p>
+        </button>
+
+        <button class="menu-btn"
+            onclick="openPage('Projects')">
+            <span class="number">02 / MENU</span>
+            <span class="symbol">🏗</span>
+            <h3>Projects</h3>
+            <p>Construction projects</p>
+        </button>
+
+        <button class="menu-btn"
+            onclick="openPage('Site Reports')">
+            <span class="number">03 / MENU</span>
+            <span class="symbol">▤</span>
+            <h3>Site Reports</h3>
+            <p>Site inspection reports</p>
+        </button>
+
+        <button class="menu-btn"
+            onclick="openPage('Daily Progress')">
+            <span class="number">04 / MENU</span>
+            <span class="symbol">↗</span>
+            <h3>Daily Progress</h3>
+            <p>Work progress tracking</p>
+        </button>
+
+        <button class="menu-btn"
+            onclick="openPage('Materials')">
+            <span class="number">05 / MENU</span>
+            <span class="symbol">▧</span>
+            <h3>Materials</h3>
+            <p>Material inventory</p>
+        </button>
+
+        <button class="menu-btn"
+            onclick="openPage('Equipment')">
+            <span class="number">06 / MENU</span>
+            <span class="symbol">⚙</span>
+            <h3>Equipment</h3>
+            <p>Tools & machinery</p>
+        </button>
+
+        <button class="menu-btn"
+            onclick="openPage('Safety')">
+            <span class="number">07 / MENU</span>
+            <span class="symbol">⬡</span>
+            <h3>Safety</h3>
+            <p>Safety & site rules</p>
+        </button>
+
+        <button class="menu-btn"
+            onclick="openPage('Settings')">
+            <span class="number">08 / MENU</span>
+            <span class="symbol">☰</span>
+            <h3>Settings</h3>
+            <p>Website preferences</p>
+        </button>
+
+    </section>
+
+    <footer>
+        <div>OVERSEER <span>(39)</span></div>
+        <div>CONSTRUCTION MANAGEMENT SYSTEM</div>
+        <div>© 2026</div>
+    </footer>
+
+</main>
+
+<script>
+const intro = document.getElementById("intro");
+const main = document.getElementById("main");
+
+// Show the main menu after 3 seconds
+window.addEventListener("load", function () {
+    setTimeout(function () {
+        intro.classList.add("hide");
+        main.classList.add("show");
+    }, 3000);
+});
+
+// Button click action
+function openPage(pageName) {
+    alert(pageName + " page is ready to be developed.");
+}
+</script>
+
+</body>
+</html>
