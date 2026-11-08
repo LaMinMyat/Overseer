@@ -1,0 +1,809 @@
+
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earthwork Estimate | Overseer (39)</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Myanmar:wght@400;500;600;700&display=swap');
+
+:root {
+    --navy: #101e30;
+    --navy2: #203850;
+    --yellow: #ffbd24;
+    --bg: #edf0f3;
+    --white: #fff;
+    --grey: #647385;
+    --border: #dce2e8;
+    --green: #16845b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans Myanmar', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--navy);
+    min-height: 100vh;
+}
+
+.topbar {
+    background: var(--navy);
+    color: white;
+    padding: 19px 6%;
+    border-bottom: 4px solid var(--yellow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.brand {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.brand span {
+    color: var(--yellow);
+}
+
+.top-label {
+    font-family: 'Inter', sans-serif;
+    color: #c5ced8;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+}
+
+.hero {
+    background: linear-gradient(120deg, var(--navy), var(--navy2));
+    color: white;
+    padding: 35px 6% 40px;
+}
+
+.breadcrumb {
+    color: var(--yellow);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+}
+
+.hero h1 {
+    font-size: clamp(25px, 4vw, 38px);
+    line-height: 1.7;
+}
+
+.hero p {
+    color: #c5ced8;
+    font-size: 13px;
+    line-height: 2;
+    margin-top: 8px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1050px;
+    padding: 28px 18px 50px;
+    margin: auto;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 17px;
+}
+
+.panel {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 24px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 15px rgba(16,30,48,.04);
+}
+
+.panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 23px;
+}
+
+.panel-head h2 {
+    font-size: 16px;
+}
+
+.panel-code {
+    font-family: 'Inter', sans-serif;
+    color: var(--grey);
+    font-size: 10px;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 17px;
+}
+
+.field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.field input {
+    width: 100%;
+    padding: 13px 12px;
+    border: 1px solid #cbd4de;
+    border-radius: 5px;
+    outline: none;
+    font-family: 'Inter', 'Noto Sans Myanmar', sans-serif;
+    font-size: 16px;
+    background: #fbfcfd;
+    color: var(--navy);
+}
+
+.field input:focus {
+    border-color: #d99c00;
+    box-shadow: 0 0 0 3px rgba(255,189,36,.16);
+}
+
+.hint {
+    display: block;
+    color: var(--grey);
+    font-size: 11px;
+    margin-top: 8px;
+    line-height: 1.7;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 23px;
+}
+
+.btn {
+    border: none;
+    border-radius: 5px;
+    padding: 13px 20px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.btn-primary {
+    background: var(--yellow);
+    color: var(--navy);
+    flex: 1;
+}
+
+.btn-primary:hover {
+    background: #e8a900;
+}
+
+.btn-reset {
+    background: #e8edf2;
+    color: var(--navy);
+}
+
+.btn-reset:hover {
+    background: #d6dfe8;
+}
+
+.error {
+    color: #bd2e2e;
+    font-size: 12px;
+    margin-top: 15px;
+    line-height: 1.8;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* SUMMARY */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 27px;
+}
+
+.summary-card {
+    background: var(--navy);
+    color: white;
+    border-radius: 6px;
+    padding: 21px;
+    border-left: 4px solid var(--yellow);
+}
+
+.summary-label {
+    color: #c5ced8;
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.summary-value {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(23px, 4vw, 34px);
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.summary-unit {
+    font-size: 12px;
+    color: var(--yellow);
+    margin-top: 8px;
+}
+
+/* MACHINERY */
+.machine-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.machine-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    min-width: 0;
+}
+
+.machine-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.machine-number {
+    font-family: 'Inter', sans-serif;
+    color: #9ca8b5;
+    font-weight: 800;
+    font-size: 13px;
+}
+
+.machine-card h3 {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-top: 9px;
+}
+
+.machine-en {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: var(--grey);
+    margin-top: 5px;
+}
+
+.machine-rate {
+    background: #fff6dd;
+    color: #765300;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    line-height: 1.7;
+    margin-top: 17px;
+}
+
+.machine-result {
+    margin-top: 18px;
+    border-top: 1px solid var(--border);
+    padding-top: 15px;
+}
+
+.result-label {
+    font-size: 11px;
+    color: var(--grey);
+}
+
+.result-value {
+    font-family: 'Inter', sans-serif;
+    font-size: 27px;
+    font-weight: 800;
+    color: var(--green);
+    margin-top: 7px;
+    overflow-wrap: anywhere;
+}
+
+.result-unit {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.result-note {
+    color: var(--grey);
+    font-size: 11px;
+    line-height: 1.8;
+    margin-top: 10px;
+}
+
+.formula {
+    background: #e5eaf0;
+    border-left: 4px solid #75879a;
+    padding: 18px;
+    margin-top: 22px;
+    border-radius: 3px;
+}
+
+.formula h3 {
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.formula p {
+    color: #465466;
+    font-size: 12px;
+    line-height: 2.1;
+    overflow-wrap: anywhere;
+}
+
+.notice {
+    margin-top: 18px;
+    font-size: 12px;
+    line-height: 2;
+    color: #596777;
+}
+
+footer {
+    background: var(--navy);
+    color: #aab5c1;
+    padding: 24px 6%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+footer strong {
+    color: var(--yellow);
+}
+
+@media(max-width: 650px) {
+    .topbar {
+        padding: 17px 20px;
+    }
+
+    .brand {
+        font-size: 17px;
+    }
+
+    .top-label {
+        font-size: 8px;
+    }
+
+    .hero {
+        padding: 28px 22px 32px;
+    }
+
+    .input-grid {
+        grid-template-columns: 1fr;
+        gap: 19px;
+    }
+
+    .machine-list {
+        grid-template-columns: 1fr;
+    }
+
+    .panel {
+        padding: 18px;
+    }
+
+    .summary-grid {
+        gap: 10px;
+    }
+
+    .summary-card {
+        padding: 15px;
+    }
+
+    .summary-label {
+        font-size: 11px;
+    }
+
+    .actions .btn {
+        padding: 13px 12px;
+    }
+}
+
+@media print {
+    .topbar, .hero, .input-panel,
+    .actions, footer {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+    }
+
+    .container {
+        max-width: none;
+        padding: 0;
+    }
+
+    .panel, .machine-card, .summary-card {
+        box-shadow: none;
+        break-inside: avoid;
+    }
+
+    .summary-card {
+        background: white;
+        color: black;
+        border: 1px solid #ccc;
+    }
+
+    .summary-label, .summary-unit {
+        color: black;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="brand">OVERSEER <span>(39)</span></div>
+    <div class="top-label">CIVIL ENGINEERING</div>
+</header>
+
+<section class="hero">
+    <div class="breadcrumb">ESTIMATE / EARTHWORK</div>
+    <h1>မြေသားလမ်းလုပ်ငန်း</h1>
+    <p>
+        လမ်းဧရိယာ၊ မြေထုထည်နှင့် စက်ယန္တရား
+        လုပ်ငန်းချိန်များကို ခန့်မှန်းတွက်ချက်ရန်
+    </p>
+</section>
+
+<main class="container">
+
+    <!-- INPUT -->
+    <section class="panel input-panel">
+        <div class="panel-head">
+            <h2>လုပ်ငန်းအချက်အလက်များ</h2>
+            <span class="panel-code">INPUT DATA</span>
+        </div>
+
+        <form id="estimateForm">
+            <div class="input-grid">
+
+                <div class="field">
+                    <label for="length">လမ်းအလျား</label>
+                    <input id="length" type="number"
+                        min="0.000001" step="any"
+                        placeholder="ဥပမာ - 1000"
+                        required>
+                    <span class="hint">ယူနစ် — ပေ (ft)</span>
+                </div>
+
+                <div class="field">
+                    <label for="width">လမ်းအကျယ်</label>
+                    <input id="width" type="number"
+                        min="0.000001" step="any"
+                        placeholder="ဥပမာ - 20"
+                        required>
+                    <span class="hint">ယူနစ် — ပေ (ft)</span>
+                </div>
+
+                <div class="field">
+                    <label for="depth">လမ်းထု / အထူ</label>
+                    <input id="depth" type="number"
+                        min="0.000001" step="any"
+                        placeholder="ဥပမာ - 1"
+                        required>
+                    <span class="hint">ယူနစ် — ပေ (ft)(အပို ၃၅% ထည့်တွက်ထား</span>
+                </div>
+
+            </div>
+
+            <div id="error" class="error hidden"></div>
+
+            <div class="actions">
+                <button class="btn btn-primary" type="submit">
+                    တွက်ချက်မည် ↗
+                </button>
+
+                <button class="btn btn-reset" type="reset">
+                    ပြန်ဖျက်မည်
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <!-- OUTPUT -->
+    <section id="results" class="hidden">
+
+        <h2 class="section-title">အခြေခံတွက်ချက်မှုရလဒ်</h2>
+
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="summary-label">လမ်းဧရိယာ (Area)</div>
+                <div id="areaResult" class="summary-value">0</div>
+                <div class="summary-unit">စတုရန်းပေ (ft²)</div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-label">မြေထုထည် (Volume)</div>
+                <div id="volumeResult" class="summary-value">0</div>
+                <div class="summary-unit">ကုဗပေ (ft³)</div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-head">
+                <h2>စက်ယန္တရား လုပ်ငန်းခန့်မှန်းချက်</h2>
+                <span class="panel-code">MACHINERY ESTIMATE</span>
+            </div>
+
+            <div class="machine-list">
+
+                <!-- BACKHOE -->
+                <article class="machine-card">
+                    <div class="machine-top">
+                        <span class="machine-number">01</span>
+                    </div>
+
+                    <h3>မြေတူးစက် Backhoe</h3>
+                    <div class="machine-en">EXCAVATION</div>
+
+                    <div class="machine-rate">
+                        ထုတ်လုပ်နိုင်နှုန်း<br>
+                        4,500 ကုဗပေ / နာရီ
+                    </div>
+
+                    <div class="machine-result">
+                        <div class="result-label">လိုအပ်မည့် လုပ်ငန်းချိန်</div>
+                        <div id="backhoeHours" class="result-value">0</div>
+                        <div class="result-unit">နာရီ (Hours)</div>
+                        <div id="backhoeRounded" class="result-note"></div>
+                    </div>
+                </article>
+
+                <!-- TRUCK -->
+                <article class="machine-card">
+                    <div class="machine-top">
+                        <span class="machine-number">02</span>
+                    </div>
+
+                    <h3>မြေသယ်ကား</h3>
+                    <div class="machine-en">DUMP TRUCK</div>
+
+                    <div class="machine-rate">
+                        သယ်ယူနိုင်နှုန်း<br>
+                        439 ကုဗပေ / ခေါက်
+                    </div>
+
+                    <div class="machine-result">
+                        <div class="result-label">လိုအပ်မည့် အခေါက်ရေ</div>
+                        <div id="truckTrips" class="result-value">0</div>
+                        <div class="result-unit">ခေါက် (Trips)</div>
+                        <div id="truckNote" class="result-note"></div>
+                    </div>
+                </article>
+
+                <!-- GRADER -->
+                <article class="machine-card">
+                    <div class="machine-top">
+                        <span class="machine-number">03</span>
+                    </div>
+
+                    <h3>မြေညှိစက်</h3>
+                    <div class="machine-en">MOTOR GRADER</div>
+
+                    <div class="machine-rate">
+                        ထုတ်လုပ်နိုင်နှုန်း<br>
+                        2,850 ကုဗပေ / နာရီ
+                    </div>
+
+                    <div class="machine-result">
+                        <div class="result-label">လိုအပ်မည့် လုပ်ငန်းချိန်</div>
+                        <div id="graderHours" class="result-value">0</div>
+                        <div class="result-unit">နာရီ (Hours)</div>
+                        <div id="graderRounded" class="result-note"></div>
+                    </div>
+                </article>
+
+                <!-- COMPACTOR -->
+                <article class="machine-card">
+                    <div class="machine-top">
+                        <span class="machine-number">04</span>
+                    </div>
+
+                    <h3>မြေသိပ်သည်းစက်</h3>
+                    <div class="machine-en">SOIL COMPACTOR / ROLLER</div>
+
+                    <div class="machine-rate">
+                        ထုတ်လုပ်နိုင်နှုန်း<br>
+                        4,000 စတုရန်းပေ / နာရီ
+                    </div>
+
+                    <div class="machine-result">
+                        <div class="result-label">လိုအပ်မည့် လုပ်ငန်းချိန်</div>
+                        <div id="compactorHours" class="result-value">0</div>
+                        <div class="result-unit">နာရီ (Hours)</div>
+                        <div id="compactorRounded" class="result-note"></div>
+                    </div>
+                </article>
+
+            </div>
+
+            <div class="formula">
+                <h3>တွက်ချက်ပုံ (Calculation Formula)</h3>
+                <p id="formulaText">
+                    လမ်းဧရိယာ = လမ်းအလျား × လမ်းအကျယ်<br>
+                    မြေထုထည် = လမ်းဧရိယာ × လမ်းထု<br>
+                    စက်လုပ်ငန်းချိန် = မြေထုထည် ÷ ထုတ်လုပ်နိုင်နှုန်း<br>
+                    မြေသိပ်သည်းချိန် = လမ်းဧရိယာ ÷ 4,000<br>
+                    မြေသယ်ကားအခေါက်ရေ = မြေထုထည် ÷ 439
+                </p>
+            </div>
+
+            <p class="notice">
+                မှတ်ချက် — ဤရလဒ်များသည် ပေးထားသော ထုတ်လုပ်နိုင်နှုန်းများအပေါ်
+                အခြေခံထားသော သီအိုရီအရ ခန့်မှန်းချက်များဖြစ်သည်။
+                လက်တွေ့လုပ်ငန်းတွင် မြေဖောင်းပွမှု၊ မြေသိပ်သည်းမှု၊
+                မြေသားအမျိုးအစား၊ စက်အသုံးချနိုင်မှု၊ သယ်ယူအကွာအဝေးနှင့်
+                မြေသိပ်သည်းအောင် ကြိတ်ရမည့်အကြိမ်ရေတို့ကြောင့်
+                ရလဒ်ကွာခြားနိုင်သည်။
+            </p>
+
+            <div class="actions">
+                <button class="btn btn-primary"
+                    type="button" onclick="window.print()">
+                    Print / PDF ထုတ်မည်
+                </button>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div>OVERSEER <strong>(39)</strong></div>
+    <div>EARTHWORK ESTIMATION</div>
+    <div>CIVIL ENGINEERING</div>
+</footer>
+
+<script>
+const form = document.getElementById('estimateForm');
+const results = document.getElementById('results');
+const errorBox = document.getElementById('error');
+
+function formatNumber(value, digits = 2) {
+    return value.toLocaleString('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: digits
+    });
+}
+
+function setText(id, value) {
+    document.getElementById(id).textContent = value;
+}
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const length = Number(document.getElementById('length').value);
+    const width = Number(document.getElementById('width').value);
+    const depth = Number(document.getElementById('depth').value);
+
+    if (
+        !Number.isFinite(length) ||
+        !Number.isFinite(width) ||
+        !Number.isFinite(depth) ||
+        length <= 0 ||
+        width <= 0 ||
+        depth <= 0
+    ) {
+        errorBox.textContent =
+            'အလျား၊ အကျယ်နှင့် အထူတို့ကို သုညထက်ကြီးသော ကိန်းဂဏန်းများ ထည့်ပါ။';
+        errorBox.classList.remove('hidden');
+        results.classList.add('hidden');
+        return;
+    }
+
+    const area = length * width;
+    const volume = area * depth;
+
+    // Machinery productivity rates
+    const backhoeRate = 4500;     // ft3/hour
+    const truckCapacity = 439;    // ft3/trip
+    const graderRate = 2850;      // ft3/hour
+    const compactorRate = 4000;   // ft2/hour
+
+    const backhoeHours = volume / backhoeRate;
+    const truckTrips = Math.ceil(volume / truckCapacity);
+    const graderHours = volume / graderRate;
+    const compactorHours = area / compactorRate;
+
+    setText('areaResult', formatNumber(area));
+    setText('volumeResult', formatNumber(volume));
+
+    setText('backhoeHours', formatNumber(backhoeHours, 3));
+    setText(
+        'backhoeRounded',
+        'တစ်နာရီပြည့်စီ စီမံပါက ' +
+        formatNumber(Math.ceil(backhoeHours), 0) + ' နာရီ'
+    );
+
+    setText('truckTrips', formatNumber(truckTrips, 0));
+    setText(
+        'truckNote',
+        'နောက်ဆုံးအခေါက်တွင် ကျန်ရှိသည့် မြေထုကို သယ်ယူရန် ' +
+        formatNumber(
+            volume - (truckTrips - 1) * truckCapacity
+        ) + ' ကုဗပေခန့် လိုအပ်မည်။'
+    );
+
+    setText('graderHours', formatNumber(graderHours, 3));
+    setText(
+        'graderRounded',
+        'တစ်နာရီပြည့်စီ စီမံပါက ' +
+        formatNumber(Math.ceil(graderHours), 0) + ' နာရီ'
+    );
+
+    setText('compactorHours', formatNumber(compactorHours, 3));
+    setText(
+        'compactorRounded',
+        'တစ်နာရီပြည့်စီ စီမံပါက ' +
+        formatNumber(Math.ceil(compactorHours), 0) + ' နာရီ'
+    );
+
+    setText(
+        'formulaText',
+        'လမ်းဧရိယာ = ' + formatNumber(length) +
+        ' × ' + formatNumber(width) +
+        ' = ' + formatNumber(area) + ' စတုရန်းပေ\n' +
+
+        'မြေထုထည် = ' + formatNumber(area) +
+        ' × ' + formatNumber(depth) +
+        ' = ' + formatNumber(volume) + ' ကုဗပေ\n' +
+
+        'Backhoe = ' + formatNumber(volume) +
+        ' ÷ 4,500 = ' + formatNumber(backhoeHours, 3) + ' နာရီ\n' +
+
+        'မြေသယ်ကား = ' + formatNumber(volume) +
+        ' ÷ 439 = ' + formatNumber(truckTrips, 0) + ' ခေါက် (အပေါ်ပြည့်)\n' +
+
+        'မြေညှိစက် = ' + formatNumber(volume) +
+        ' ÷ 2,850 = ' + formatNumber(graderHours, 3) + ' နာရီ\n' +
+
+        'မြေသိပ်သည်းစက် = ' + formatNumber(area) +
+        ' ÷ 4,000 = ' + formatNumber(compactorHours, 3) + ' နာရီ'
+    );
+
+    errorBox.classList.add('hidden');
+    results.classList.remove('hidden');
+
+    results.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+});
+
+form.addEventListener('reset', function() {
+    results.classList.add('hidden');
+    errorBox.classList.add('hidden');
+});
+</script>
+
+</body>
+</html>
